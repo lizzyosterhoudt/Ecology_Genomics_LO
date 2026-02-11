@@ -1,0 +1,14 @@
+cd BIOE_EcologyGEnomics
+curl -L -0 https://raw.githubusercontent.com/elinck/genomics_eco_con/main/data/week_1.tar.gz -o week_1.tar.gz
+tar -xzf week_1.tar.gz
+cd week_1
+mkdir fastq/
+mkdir fasta/
+mkdir metadata/
+mv *.fastq.gz ~ fastq/
+mv *.fasta ~ fasta/
+mv *.csv ~ metadata/
+
+fasta: 3 files
+fastq: 8 files
+metadata: 3 files
