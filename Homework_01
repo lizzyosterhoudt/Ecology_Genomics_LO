@@ -12,3 +12,5 @@ mv *.csv ~ metadata/
 fasta: 3 files
 fastq: 8 files
 metadata: 3 files
+
+Done! :)
