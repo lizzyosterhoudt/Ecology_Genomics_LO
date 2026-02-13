@@ -1,7 +1,7 @@
-# Ecology_Genomics_LO
-BIOE591 SP 2026
+# Ecology_Genomics_LO <br>
+BIOE591 SP 2026 
 
-**Homework assignments** 
+**Homework assignments** <br>
 Markdown & Command Line Basics (HW1): *Homework_01* <br>
 Git & Github Basics (HW2): creation of github page and Ecology_Genomics_LO repisitory <br>
 Introduction to Tempest (HW3): upload coming soon, working on connecting tempest to github <br>
