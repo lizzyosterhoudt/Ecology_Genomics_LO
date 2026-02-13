@@ -1,6 +1,0 @@
-name: demo_new
-channels:
-	- conda-forge
-	- bioconda
-dependencies:
-	- seqtk
