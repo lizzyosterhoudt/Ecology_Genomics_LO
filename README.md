@@ -8,4 +8,4 @@ Introduction to Tempest (HW3): .sbatch script uploaded <br>
 Filtering .Fastq Files (HW4): .sbatch and .yml scripts uploaded; currently writing .md file <br>
 
 **Actions pending** <br>
-Aligning short reads to reference sequences (HW5); in development 
+Aligning short reads to reference sequences (HW5); tutorial finished; aligning all samples in development
