@@ -5,7 +5,7 @@ BIOE591 SP 2026
 Markdown & Command Line Basics (HW1): *Homework_01* <br>
 Git & Github Basics (HW2): creation of github page and Ecology_Genomics_LO repisitory <br>
 Introduction to Tempest (HW3): .sbatch script uploaded <br>
-Filtering .Fastq Files (HW4): rmd., .sbatch and .yml scripts uploaded; <br>
+Filtering .Fastq Files (HW4): interpretation rmd., .sbatch and .yml scripts uploaded; <br>
 
 **Actions pending** <br>
 Aligning short reads to reference sequences (HW5); tutorial finished; aligning all samples in development
