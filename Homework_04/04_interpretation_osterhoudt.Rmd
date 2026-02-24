@@ -1,0 +1,31 @@
+---
+title: "04_interpretation_osterhoudt.md"
+author: "lizzy osterhoudt"
+date: "2026-02-19"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*Diglossa cyanea 161093 trimmed read used for analysis* 
+
+**Question 1: What percentage of reads passed filtering?** \n
+
+The total number of reads that passed filtering for my *Diglossa cyanea* data set was  84% (8.89 M).
+
+**Question 2: What percentage of reads were low quality?** \n
+
+The percentage of reads that failed due to low quality was 16% (1.70 M) 
+
+**Question 3: What is the estimated insert size, and what percentage of your reads is it based on?** \n 
+
+The estimated peak insert size is 271. This was based on the distance between paired-end reads that passed filtering, 84%. 
+
+**Question 4: At approximately what read position does mean quality drop below Q30 on read2 after filtering? How does this differ from the position at which mean quality drops below Q30 on read2 before filtering?**
+
+After the filtering of read 2, at position 117 does the mean quality drop below a quality of 30. The read quality before filtering drops below Q30 at position 99. This is an 18 position difference from before and after filtering. 
