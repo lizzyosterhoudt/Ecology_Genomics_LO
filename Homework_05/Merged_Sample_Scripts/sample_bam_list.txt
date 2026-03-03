@@ -1,0 +1,12 @@
+Diglossa_cyanea_161093.sorted.bam
+Diglossa_cyanea_162560.sorted.bam
+Diglossa_cyanea_162562.sorted.bam
+Diglossa_cyanea_163720.sorted.bam
+Diglossa_cyanea_167678.sorted.bam
+Diglossa_cyanea_169146.sorted.bam
+Diglossa_cyanea_169165.sorted.bam
+Diglossa_cyanea_169171.sorted.bam
+Diglossa_cyanea_171247.sorted.bam
+Diglossa_cyanea_171290.sorted.bam
+Diglossa_cyanea_218742.sorted.bam
+Diglossa_cyanea_219530.sorted.bam
