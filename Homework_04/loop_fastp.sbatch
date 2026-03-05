@@ -21,7 +21,7 @@ eval "$(conda shell.bash hook)"
 conda activate fastp
 
 shopt -s nullglob
-
+#loop to help process samples ending in R1 and R2 with same fastq.gz
 for r1 in /home/g33g348/evo_genomics/course-materials/data/raw_reads/Diglossa_cyanea/*_R1_001.fastq.gz; do
     r2="${r1/_R1_001.fastq.gz/_R2_001.fastq.gz}"
     sample=$(basename "$r1" | sed 's/_R1_001.fastq.gz//')
@@ -30,9 +30,9 @@ for r1 in /home/g33g348/evo_genomics/course-materials/data/raw_reads/Diglossa_cy
         echo "Missing R2 for $sample"
         continue
     fi
-
+#helps me know if something is running 
     echo "Processing $sample"
-
+#folder output organization 
     fastp \
         -i "$r1" \
         -I "$r2" \
