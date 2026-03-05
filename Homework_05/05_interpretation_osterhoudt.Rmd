@@ -1,0 +1,33 @@
+---
+title: "05_interpretation_osterhoudt.md"
+author: "lizzy osterhoudt"
+date: "2026-02-26"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+79517801 + 0 in total (QC-passed reads + QC-failed reads)
+79513820 + 0 primary
+0 + 0 secondary
+3981 + 0 supplementary
+0 + 0 duplicates
+0 + 0 primary duplicates
+120984 + 0 mapped (0.15% : N/A)
+117003 + 0 primary mapped (0.15% : N/A)
+79513820 + 0 paired in sequencing
+39756911 + 0 read1
+39756909 + 0 read2
+102036 + 0 properly paired (0.13% : N/A)
+103914 + 0 with itself and mate mapped
+13089 + 0 singletons (0.02% : N/A)
+68 + 0 with mate mapped to a different chr
+34 + 0 with mate mapped to a different chr (mapQ>=5)
+
+Depth
+1321.7
