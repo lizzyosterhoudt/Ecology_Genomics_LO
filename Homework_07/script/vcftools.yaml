@@ -1,0 +1,10 @@
+name: vcftools
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - vcftools
+  - bcftools
+  - htslib
+  - tabix
+  - samtools

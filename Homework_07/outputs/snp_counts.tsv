@@ -1,0 +1,7 @@
+file	snp_count
+Diglossa_cyanea_samples.vcf	592
+step1.recode.vcf	592
+step2.recode.vcf	580
+step3.recode.vcf	579
+step4.recode.vcf	140
+step5.recode.vcf	135
