@@ -1,0 +1,49 @@
+---
+title: "hw7_interpretation"
+author: "lizzy osterhoudt"
+date: "2026-03-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Filtering choice justifications**
+
+#filtering step 1: --remove-indels remove indels and leaving SNPs
+
+The purpose of this initial filtering step helps standardize the aligned sequences to the referemce gemone. Indels are mutations that impact the length of the sequence by insertion and/or deletion. With indels removed, any variant that changes this length is gone. 
+
+#filtering step 2:--minQ 40 remove all sites with a Phred-scaled quality score lower than 40
+
+Using minQ 40, has the computer remove bases by an estimate of error through the sequencer. The Phred Quality of 40 means that there is 99.99% confidence that the base called from the sequencer is correct. This allows for a 0.01% chance of error in each base being called. After removing indels, using this Phred Quality score, there is justified confidence in the accuracy of bases in the sequences. Using a lower phred score of 10 allows bases with lower confidence and an error rate of 10% from the sequencer decreases the accuracy of the sequences we are using. With a lower score, that means our final output does not have as strong evidence as a phred score of 40 does. However, using higher phred scores could potentially remove many bases that are not of upmost confidence. A 40 score, allows 0.001% chance of error while a phred score of 60 allows only 0.0001% of error in bases. While the error rate decreases, accuracy does not generally vary after phred score 20 showing a logarithmic relationship. 
+
+https://gatk.broadinstitute.org/hc/en-us/articles/360035531872-Phred-scaled-quality-scores
+
+
+#filtering step 3:--thin 50 thinning so no two sites are closer than 50 nucleotides apart
+
+Now that the sequences have a high base confidence and little noise in the sequnce (no presence of indels), we can now trim them down even more. The use of --thin 50, removes sites that must be at least 50 nucelotides apart. Not removing snp's that are relatively close in their sequence could potentially lead to issues later down the line. For example, snp's that are closer together could potentially be in linkage disequilibrium, or have a greater chance to interact because of their close proximity. Only keeping snp's that are at a minimum of 50 nucelotides apart helps us mitigate these issues and also takes into consideration the probability of error from the sequencer. 
+
+#filtering step 4:--hwe 0.005
+
+I chose to add the final filter that incorporates the Hardy-Weinburg Equlibrium. The purpose of this filter was to look at the genotype level of variants. Using an hwe of 0.005 allowed me to see only sites above this threshold. The purpose of this filter was to exclude any excess heterozygosity to account for any errors/artificats from the sequencer. I had to find a sweet spot for the integer I set as hwe. I initially ran 0.001, and did not have any snps in the fourth filtering step in the snp count file. I finally settled on 0.005 and saw an actual count of snps that remained after this filtering. Using too large of an hwe parameter could include error-prone sites. While if you use a parameter that is too small, it might not be realistic for a population and you will recieve zero snp's that made it through this final filter. 
+
+--------------------------------
+
+**Statistic output options summaries *(I was curious so did two more)* **
+
+#output 1: --geno-r2 
+
+One output statistic I chose to look at was related to linkage disequilibrium. The command --geno-r2 helps calculate the LD that is the same measure as using PLINK. In the output I am able to see paired positions on the chromosome and the number of individuals with this pairing. I am also given the coefficient of determination $(R^2)$. Normally this shows what percent of the data can be explained by the system we have set up. In terms of using vcftools and exploring LD, I think this means the probability that this pairing of snp's are related to LD. In the output file I am able to determine which pairings might have stronger evidence of LD. Including this statistic for variant calling seems applicable for me. If there are certain snp variants that appear, I would be curious about the likelhood of a statistical association between any snps.  
+
+
+#output 2: --singletons 
+
+The second statistical output I tried with this data was --singletons. I am able to see the position of the singleton, and what is its exact nucelotide and which individual it is associated with. This could be relative if I were looking for any individuals that could be a strong outlier compared to its companions' sequences.
+
+#output 3: --hardy 
+
+The last statistical output I tried was --hardy. This output details if the specific site falls under a Hardy Weingburg Equilibrium. This is important becase if there is evidence of an equilibrium that means that there are no changes in the genetic variance of a population. The output gave me the $H_e$, $H_o$, the chi-squared value of HWE, a corresponding p-value and a p-value associated with heterozygositity defeicency or excess at each site. Using this stat output seems applicablle for conservation purposes and identified any populations of concern. 
+
