@@ -1,0 +1,8 @@
+name: ngsrelate
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - ngsrelate
+  - bcftools
+  - htslib

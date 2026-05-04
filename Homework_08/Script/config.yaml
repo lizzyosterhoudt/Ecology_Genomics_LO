@@ -1,0 +1,8 @@
+executor: slurm
+jobs: 20
+latency-wait: 60
+default-resources:
+  - runtime=30
+  - mem_mb=4000
+  - slurm_partition=priority
+  - slurm_account=priority-bioe-591-genomics
