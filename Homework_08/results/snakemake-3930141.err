@@ -1,0 +1,115 @@
+Using profile profile/slurm for setting default command line arguments.
+host: epyc007
+Building DAG of jobs...
+Your conda installation is not configured to use strict channel priorities. This is however important for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
+Creating conda environment envs/bcftools.yaml...
+Downloading and installing remote packages.
+Cleaning up conda package tarballs.
+Environment for /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/envs/bcftools.yaml created (location: .snakemake/conda/06f6023d81b2773efea9d2978d20a2ba_)
+Creating conda environment envs/fastp.yaml...
+Downloading and installing remote packages.
+Cleaning up conda package tarballs.
+Environment for /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/envs/fastp.yaml created (location: .snakemake/conda/b6e1a16bbb6c536125dfa6a387563f0a_)
+Creating conda environment envs/vcftools.yaml...
+Downloading and installing remote packages.
+Cleaning up conda package tarballs.
+Environment for /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/envs/vcftools.yaml created (location: .snakemake/conda/1a3919f12860cae58d119792b212716e_)
+Creating conda environment envs/align.yaml...
+Downloading and installing remote packages.
+Cleaning up conda package tarballs.
+Environment for /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/envs/align.yaml created (location: .snakemake/conda/a8a2987bd4e1b9e27552071b757cbe22_)
+You are running snakemake in a SLURM job context. This is not recommended, as it may lead to unexpected behavior. If possible, please run Snakemake directly on the login node.
+SLURM run ID: bf12c5fa-7011-4f11-b4b0-18662680ee3b
+MinJobAge 300s (>= 120s). 'squeue' should work reliably for status queries.
+Using shell: /usr/bin/bash
+Provided remote nodes: 20
+Job stats:
+job                count
+---------------  -------
+fastp                  2
+index_ref              1
+align                  2
+process_bam            2
+call_variants          2
+filter_variants        2
+all                    1
+total                 12
+
+Select jobs to execute...
+Execute 3 jobs...
+Job 5 has been submitted with SLURM jobid 3930157 (log: /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/.snakemake/slurm_logs/rule_fastp/Diglossa_cyanea_161093/3930157.log).
+Job 11 has been submitted with SLURM jobid 3930158 (log: /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/.snakemake/slurm_logs/rule_fastp/Diglossa_cyanea_162560/3930158.log).
+Job 6 has been submitted with SLURM jobid 3930159 (log: /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/.snakemake/slurm_logs/rule_index_ref/3930159.log).
+[Mon May  4 14:05:37 2026]
+Finished jobid: 6 (Rule: index_ref)
+1 of 12 steps (8%) done
+[Mon May  4 14:06:17 2026]
+Finished jobid: 11 (Rule: fastp)
+2 of 12 steps (17%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon May  4 14:06:17 2026]
+Finished jobid: 5 (Rule: fastp)
+3 of 12 steps (25%) done
+Select jobs to execute...
+Execute 1 jobs...
+Job 10 has been submitted with SLURM jobid 3930161 (log: /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/.snakemake/slurm_logs/rule_align/Diglossa_cyanea_162560/3930161.log).
+Job 4 has been submitted with SLURM jobid 3930162 (log: /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/.snakemake/slurm_logs/rule_align/Diglossa_cyanea_161093/3930162.log).
+[Mon May  4 14:06:57 2026]
+Error in rule align:
+    message: SLURM-job '3930161' failed, SLURM status is: 'FAILED'. Reason: Unknown.For further error details see the cluster/cloud log and the log files of the involved rule(s).
+    jobid: 10
+    input: results/clean/Diglossa_cyanea_162560_R1.clean.fastq.gz, results/clean/Diglossa_cyanea_162560_R2.clean.fastq.gz, genome/hemoglobin_references.fasta
+    output: results/aligned/Diglossa_cyanea_162560.sam
+    log: /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/.snakemake/slurm_logs/rule_align/Diglossa_cyanea_162560/3930161.log (check log file(s) for error details)
+    conda-env: /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/.snakemake/conda/a8a2987bd4e1b9e27552071b757cbe22_
+    shell:
+        
+        bwa mem -t 8 genome/hemoglobin_references.fasta results/clean/Diglossa_cyanea_162560_R1.clean.fastq.gz results/clean/Diglossa_cyanea_162560_R2.clean.fastq.gz > results/aligned/Diglossa_cyanea_162560.sam
+        
+        (command exited with non-zero exit code)
+    external_jobid: 3930161
+[Mon May  4 14:06:58 2026]
+Error in rule align:
+    message: SLURM-job '3930162' failed, SLURM status is: 'FAILED'. Reason: Unknown.For further error details see the cluster/cloud log and the log files of the involved rule(s).
+    jobid: 4
+    input: results/clean/Diglossa_cyanea_161093_R1.clean.fastq.gz, results/clean/Diglossa_cyanea_161093_R2.clean.fastq.gz, genome/hemoglobin_references.fasta
+    output: results/aligned/Diglossa_cyanea_161093.sam
+    log: /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/.snakemake/slurm_logs/rule_align/Diglossa_cyanea_161093/3930162.log (check log file(s) for error details)
+    conda-env: /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/.snakemake/conda/a8a2987bd4e1b9e27552071b757cbe22_
+    shell:
+        
+        bwa mem -t 8 genome/hemoglobin_references.fasta results/clean/Diglossa_cyanea_161093_R1.clean.fastq.gz results/clean/Diglossa_cyanea_161093_R2.clean.fastq.gz > results/aligned/Diglossa_cyanea_161093.sam
+        
+        (command exited with non-zero exit code)
+    external_jobid: 3930162
+Shutting down, this might take some time.
+Cleaning up SLURM log files older than 10 day(s).
+Exiting because a job execution failed. Look below for error messages
+[Mon May  4 14:07:48 2026]
+Error in rule align:
+    message: None
+    jobid: 10
+    input: results/clean/Diglossa_cyanea_162560_R1.clean.fastq.gz, results/clean/Diglossa_cyanea_162560_R2.clean.fastq.gz, genome/hemoglobin_references.fasta
+    output: results/aligned/Diglossa_cyanea_162560.sam
+    conda-env: /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/.snakemake/conda/a8a2987bd4e1b9e27552071b757cbe22_
+    shell:
+        
+        bwa mem -t 8 genome/hemoglobin_references.fasta results/clean/Diglossa_cyanea_162560_R1.clean.fastq.gz results/clean/Diglossa_cyanea_162560_R2.clean.fastq.gz > results/aligned/Diglossa_cyanea_162560.sam
+        
+        (command exited with non-zero exit code)
+[Mon May  4 14:07:48 2026]
+Error in rule align:
+    message: None
+    jobid: 4
+    input: results/clean/Diglossa_cyanea_161093_R1.clean.fastq.gz, results/clean/Diglossa_cyanea_161093_R2.clean.fastq.gz, genome/hemoglobin_references.fasta
+    output: results/aligned/Diglossa_cyanea_161093.sam
+    conda-env: /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/.snakemake/conda/a8a2987bd4e1b9e27552071b757cbe22_
+    shell:
+        
+        bwa mem -t 8 genome/hemoglobin_references.fasta results/clean/Diglossa_cyanea_161093_R1.clean.fastq.gz results/clean/Diglossa_cyanea_161093_R2.clean.fastq.gz > results/aligned/Diglossa_cyanea_161093.sam
+        
+        (command exited with non-zero exit code)
+Complete log(s): /home/group/bioe-591-genomics/students/osterhoudt/Homework_08/workflow/.snakemake/log/2026-05-04T140202.065447.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

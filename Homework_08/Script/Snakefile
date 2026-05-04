@@ -1,11 +1,13 @@
+# Configuration
 SAMPLES = ["Diglossa_cyanea_161093", "Diglossa_cyanea_162560"]
+REFERENCE = "genome/hemoglobin_references.fasta"
 
-rule all: 
+rule all:
     input:
         expand("results/filtered/{sample}.filtered.vcf.gz", sample=SAMPLES)
 
 #################
-#FASTP (cleaning reads)
+# FASTP (cleaning reads)
 #################
 rule fastp:
     threads: 4
@@ -20,21 +22,25 @@ rule fastp:
     output:
         r1="results/clean/{sample}_R1.clean.fastq.gz",
         r2="results/clean/{sample}_R2.clean.fastq.gz"
+    params:
+        json="results/clean/{sample}.fastp.json",
+        html="results/clean/{sample}.fastp.html"
     shell:
         """
         fastp \
         -i {input.r1} -I {input.r2} \
-        -o {output.r1} -O {output.r2} 
+        -o {output.r1} -O {output.r2} \
+        -j {params.json} -h {params.html}
         """
-    
+
 #################################
 # INDEX REFERENCE
 #################################
 rule index_ref:
     input:
-        "genome/hemoglobin_references.fasta"
+        REFERENCE
     output:
-        "genome/hemoglobin_references.fasta.fai"
+        fai=REFERENCE + ".fai"
     conda:
         "envs/align.yaml"
     shell:
@@ -44,9 +50,13 @@ rule index_ref:
 
 rule bwa_index:
     input:
-        "genome/hemoglobin_references.fasta"
+        REFERENCE
     output:
-        expand("genome/hemoglobin_references.fasta.{ext}", ext=["amb","ann","bwt","pac","sa"])
+        amb=REFERENCE + ".amb",
+        ann=REFERENCE + ".ann",
+        bwt=REFERENCE + ".bwt",
+        pac=REFERENCE + ".pac",
+        sa=REFERENCE + ".sa"
     conda:
         "envs/align.yaml"
     shell:
@@ -58,57 +68,42 @@ rule bwa_index:
 # ALIGNMENT
 #################################
 rule align:
-    threads: 4
+    threads: 8  # Increased for better performance with bwa mem
     resources:
         runtime=240,
         mem_mb=8000
     input:
         r1="results/clean/{sample}_R1.clean.fastq.gz",
         r2="results/clean/{sample}_R2.clean.fastq.gz",
-        ref="genome/hemoglobin_references.fasta",
-        idx=expand("genome/hemoglobin_references.fasta.{ext}", ext=["amb","ann","bwt","pac","sa"])
+        ref=REFERENCE
     output:
         "results/aligned/{sample}.sam"
     conda:
         "envs/align.yaml"
     shell:
         """
-        bwa mem -t 4 {input.ref} {input.r1} {input.r2} > {output}
+        bwa mem -t {threads} {input.ref} {input.r1} {input.r2} > {output}
         """
 
 #################################
-# SORT + INDEX BAM
+# SORT + INDEX BAM (combined)
 #################################
-rule sort_bam:
-    threads: 2
+rule process_bam:
+    threads: 4
     resources:
         runtime=120,
-        mem_mb=4000
+        mem_mb=8000
     input:
         "results/aligned/{sample}.sam"
     output:
-        bam="results/aligned/{sample}.sorted.bam"
+        bam="results/aligned/{sample}.sorted.bam",
+        bai="results/aligned/{sample}.sorted.bam.bai"
     conda:
         "envs/align.yaml"
     shell:
         """
-        samtools sort -o {output.bam} {input}
-        """
-
-rule index_bam:
-    threads: 1
-    resources:
-        runtime=600,
-        mem_mb=4000
-    input:
-        "results/aligned/{sample}.sorted.bam"
-    output:
-        "results/aligned/{sample}.sorted.bam.bai"
-    conda:
-        "envs/align.yaml"
-    shell:
-        """
-        samtools index {input}
+        samtools sort -@ {threads} -o {output.bam} {input}
+        samtools index {output.bam}
         """
 
 #################################
@@ -121,16 +116,19 @@ rule call_variants:
     input:
         bam="results/aligned/{sample}.sorted.bam",
         bai="results/aligned/{sample}.sorted.bam.bai",
-        ref="genome/hemoglobin_references.fasta",
-        fai="genome/hemoglobin_references.fasta.fai"
+        ref=REFERENCE,
+        fai=REFERENCE + ".fai"
     output:
         "results/vcf/{sample}.vcf.gz"
+    params:
+        tmpdir="tmp/bcftools/{sample}"
     conda:
         "envs/bcftools.yaml"
     shell:
         """
+        mkdir -p {params.tmpdir}
         bcftools mpileup -f {input.ref} {input.bam} | \
-        bcftools call -mv -Oz -o {output}
+        bcftools call -mv -Oz -o {output} --threads {threads}
         """
 
 #################################
@@ -141,23 +139,25 @@ rule filter_variants:
         runtime=1800,
         mem_mb=4000
     input:
-        "results/vcf/{sample}.vcf.gz"
+        vcf="results/vcf/{sample}.vcf.gz"
     output:
-        "results/filtered/{sample}.filtered.vcf.gz"
+        filtered="results/filtered/{sample}.filtered.vcf.gz"
+    params:
+        prefix=lambda wildcards: f"results/filtered/{wildcards.sample}.filtered"
     conda:
         "envs/vcftools.yaml"
     shell:
         """
         vcftools \
-        --gzvcf {input} \
+        --gzvcf {input.vcf} \
         --remove-indels \
         --minQ 40 \
         --mac 2 \
         --min-meanDP 10 \
         --recode \
         --recode-INFO-all \
-        --out results/filtered/{wildcards.sample}.filtered
-
-        bgzip -c results/filtered/{wildcards.sample}.filtered.recode.vcf > {output}
+        --out {params.prefix}
+        
+        mv {params.prefix}.recode.vcf {params.prefix}.vcf
+        bgzip -f {params.prefix}.vcf
         """
-    
