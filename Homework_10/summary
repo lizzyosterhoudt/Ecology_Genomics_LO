@@ -1,0 +1,9 @@
+The results from my own script shows that the best clustering assignment is
+when K=2. This means that the mathemtatical best way to describe these populations
+are as two seperate groups. I decided K=2 was the best fit k value because that
+clustering assignment generated the lowest BIC score when compared to K values 
+ranging from 1 - 10.  The authors of the paper where this data was derived from 
+also confirms that there are two distinct groups in this overall population,
+"we observed a clear genetic separation between NIDGS and SIDGS," (Barbosa et al., 2021).
+Learning that the paper also found the same conclusion as my own scripts did 
+is reassuring and affirms my own conclusions. 
