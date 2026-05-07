@@ -13,6 +13,5 @@ BIOE591 SP 2026
 **Calculating Kinship Coeffecients** (HW9); My bash script and rscripts are in the script folder. The figures summarizing my data are in the figures folder. I was able to compare relatedness values across the different estimates. <br>
 **Describing population genetics** (HW10); Population structure investigation of the northern and southern Idaho ground squirrels. Scripts and plots are in designated folders.<br>
 **Genome scans with pcadapt** (HW12); Comparison of outlier and neutral loci across latitude and longitude gradients using PCA plots. R script with interprative notes are in script folder, and images generated via script are in the plots folder. <br>
-
-**Actions pending** <br>
-Phylogenetic inference with IQTREE(HW13)<br>
+**Phylogenetic inference with IQTREE**(HW13); I generated a rooted tree
+from a lemur study that shows evidence of distinct divergence and strong support for sister taxa association in another species. My script is in scripts folder and my images are in the tree folder. 
